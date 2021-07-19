@@ -4,13 +4,12 @@ My first Flutter App
 
 ## Getting Started
 
-This project is a starting point for a Flutter application.
+This is my first Flutter App, made following the Introduction to flutter tutorial on
+[flutter.dev](https://flutter.dev/docs/get-started/codelab) and
+[google codelabs](https://codelabs.developers.google.com/codelabs/first-flutter-app-pt2#0)
 
-A few resources to get you started if this is your first Flutter project:
+Its just a simple app that generate english word pairs (that could be used as startup
+names or anything...Some were just funny). Its an infinite scrollable list of word pairs and you can
+save your favorites ones too. feel free to clone and modify it as you want.
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+For me it is just a first step in the vast world of cross-platform developement with Flutter
