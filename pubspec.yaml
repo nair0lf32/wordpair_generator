@@ -31,6 +31,8 @@ dependencies:
 
   #my custom packages dependencies start here:
   english_words: ^4.0.0
+  path_provider: ^2.0.1
+  permission_handler: ^8.1.4+1
 
 
 
