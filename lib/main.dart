@@ -36,8 +36,8 @@ class WordPairExt extends WordPair {
   String second;
 
   WordPairExt({
-    required this.first,
-    required this.second,
+    this.first,
+    this.second,
   }) : super(first, second);
 
   factory WordPairExt.fromJson(Map<String, dynamic> json) => WordPairExt(
@@ -53,7 +53,7 @@ class WordPairExt extends WordPair {
 
 //the main stateful widget
 class RandomWords extends StatefulWidget {
-  const RandomWords({Key? key}) : super(key: key);
+  const RandomWords({Key key}) : super(key: key);
   @override
   _RandomWordsState createState() => _RandomWordsState();
 }
@@ -64,7 +64,7 @@ class _RandomWordsState extends State<RandomWords> with WidgetsBindingObserver {
   void initState() {
     super.initState();
     Permission.storage.request(); //request storage permission
-    WidgetsBinding.instance!.addObserver(this);
+    WidgetsBinding.instance.addObserver(this);
     loadWords(); //Calling the reading function (may obviously fail..but hey!)
   }
 
@@ -97,7 +97,7 @@ class _RandomWordsState extends State<RandomWords> with WidgetsBindingObserver {
   @override
   void dispose() {
     saveWords(); //calling the saving function
-    WidgetsBinding.instance!.removeObserver(this);
+    WidgetsBinding.instance.removeObserver(this);
     super.dispose();
   }
 
