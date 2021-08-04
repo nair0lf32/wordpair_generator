@@ -18,6 +18,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         //changing the App's theme
         primaryColor: Colors.black,
+        scaffoldBackgroundColor: Colors.amber,
       ),
 
       home: RandomWords(), // Removed Scafold to use randomwords instead
