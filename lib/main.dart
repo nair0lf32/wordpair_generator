@@ -9,7 +9,6 @@ import 'dart:convert'; // for json serialization
 
 void main() => runApp(MyApp());
 
-
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -26,14 +25,10 @@ class MyApp extends StatelessWidget {
   }
 }
 
-
-
 //Making Wordpair serializable by extending the class
-List<WordPairExt> wordPairExtFromJson(String str) =>
-    List<WordPairExt>.from(json.decode(str).map((x) => WordPairExt.fromJson(x)));
+List<WordPairExt> wordPairExtFromJson(String str) => List<WordPairExt>.from(json.decode(str).map((x) => WordPairExt.fromJson(x)));
 
-String wordPairExtToJson(List<WordPairExt> data) =>
-    json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
+String wordPairExtToJson(List<WordPairExt> data) => json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
 
 class WordPairExt extends WordPair {
   String first;
@@ -45,16 +40,15 @@ class WordPairExt extends WordPair {
   }) : super(first, second);
 
   factory WordPairExt.fromJson(Map<String, dynamic> json) => WordPairExt(
-    first: json["first"],
-    second: json["second"],
-  );
+        first: json["first"],
+        second: json["second"],
+      );
 
   Map<String, dynamic> toJson() => {
-    "first": first,
-    "second": second,
-  };
+        "first": first,
+        "second": second,
+      };
 }
-
 
 //the main stateful widget
 class RandomWords extends StatefulWidget {
@@ -64,7 +58,7 @@ class RandomWords extends StatefulWidget {
 }
 
 //Adding a widgets binding Observer to control lifecycle
-class _RandomWordsState extends State<RandomWords> with WidgetsBindingObserver{
+class _RandomWordsState extends State<RandomWords> with WidgetsBindingObserver {
   @override
   void initState() {
     super.initState();
@@ -74,24 +68,25 @@ class _RandomWordsState extends State<RandomWords> with WidgetsBindingObserver{
   }
 
   @override
-  void didChangeAppLifecycleState(AppLifecycleState state) {  //life cycle
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    //life cycle
     super.didChangeAppLifecycleState(state);
     // callbacks
     switch (state) {
       case AppLifecycleState.resumed:
-      // widget is resumed
-         loadWords(); //Calling the reading function
+        // widget is resumed
+        loadWords(); //Calling the reading function
         break;
       case AppLifecycleState.inactive:
-      // widget is inactive
-      saveWords(); //calling the saving function
+        // widget is inactive
+        saveWords(); //calling the saving function
         break;
       case AppLifecycleState.paused:
-      // widget is paused
+        // widget is paused
         saveWords(); //calling the saving function
         break;
       case AppLifecycleState.detached:
-      // widget is detached
+        // widget is detached
         saveWords(); //calling the saving function
         break;
     }
@@ -105,12 +100,10 @@ class _RandomWordsState extends State<RandomWords> with WidgetsBindingObserver{
     super.dispose();
   }
 
-
-  final _suggestions = <WordPairExt>[];//Using extended Word pair class instead
+  final _suggestions = <WordPairExt>[]; //Using extended Word pair class instead
   final _saved = Set<WordPairExt>();
 
-  final _biggerFont =
-      const TextStyle(fontSize: 23.0, fontWeight: FontWeight.bold);
+  final _biggerFont = const TextStyle(fontSize: 23.0, fontWeight: FontWeight.bold);
 
   Widget _buildSuggestions() {
     //The function that builds the ListView
@@ -122,9 +115,8 @@ class _RandomWordsState extends State<RandomWords> with WidgetsBindingObserver{
           final index = i ~/ 2; /*3*/
 
           if (index >= _suggestions.length) {
-             generateWordPairs().take(10).forEach((pair) {
-              _suggestions.add(WordPairExt(
-                  first: pair.first, second: pair.second));
+            generateWordPairs().take(10).forEach((pair) {
+              _suggestions.add(WordPairExt(first: pair.first, second: pair.second));
             }); /*4*/
             //_suggestions.addAll(generateWordPairs().take(10).cast());
           }
@@ -141,15 +133,15 @@ class _RandomWordsState extends State<RandomWords> with WidgetsBindingObserver{
      *build row is called for every wordPair  */
 
 //The buildRow function
-  Widget _buildRow(WordPairExt pair) {   //using extended Word pair instead
+  Widget _buildRow(WordPairExt pair) {
+    //using extended Word pair instead
     final alreadySaved = _saved.contains(pair);
     return ListTile(
       title: Text(
         pair.asPascalCase,
         style: _biggerFont,
       ),
-      trailing: Icon(alreadySaved ? Icons.star : Icons.star_border,
-          color: alreadySaved ? Colors.yellow : null),
+      trailing: Icon(alreadySaved ? Icons.star : Icons.star_border, color: alreadySaved ? Colors.yellow : null),
       onTap: () {
         setState(() {
           if (alreadySaved) {
@@ -158,7 +150,7 @@ class _RandomWordsState extends State<RandomWords> with WidgetsBindingObserver{
             _saved.add(pair);
           }
         });
-        saveWords();  //calling the saving function
+        saveWords(); //calling the saving function
       },
     );
   }
@@ -193,9 +185,7 @@ class _RandomWordsState extends State<RandomWords> with WidgetsBindingObserver{
               );
             },
           );
-          final divided = tiles.isNotEmpty
-              ? ListTile.divideTiles(context: context, tiles: tiles).toList()
-              : <Widget>[];
+          final divided = tiles.isNotEmpty ? ListTile.divideTiles(context: context, tiles: tiles).toList() : <Widget>[];
           return Scaffold(
             appBar: AppBar(
               title: Text('favorites WordPairs'),
@@ -207,12 +197,12 @@ class _RandomWordsState extends State<RandomWords> with WidgetsBindingObserver{
     );
   }
 
-
   //Async function to get the local storage path
   Future<String> get _localPath async {
     final directory = await getApplicationDocumentsDirectory();
     return directory.path;
   }
+
 //Async function to get a file for local save
   Future<File> get _localFile async {
     final path = await _localPath;
@@ -225,7 +215,7 @@ class _RandomWordsState extends State<RandomWords> with WidgetsBindingObserver{
     List<WordPairExt> savedList = _saved.toList();
     // Write the file
     String data = jsonEncode(savedList);
-      file.writeAsString('$data',mode: FileMode.write);
+    file.writeAsString('$data', mode: FileMode.write);
     print('file saved'); //for debugging purposes lol
     return file;
   }
@@ -237,23 +227,17 @@ class _RandomWordsState extends State<RandomWords> with WidgetsBindingObserver{
       String savedString = '';
       // Read the file and store the string
       await file.readAsString().then((content) => savedString = content);
-        List<WordPairExt> savedWordPairsList = wordPairExtFromJson(
-            savedString);
-        print(savedWordPairsList);
-        setState(() {
-          _suggestions.addAll(savedWordPairsList);
-          _saved.addAll(savedWordPairsList);
-        });
-    print('file read'); //haha..debugging go brrr
+      List<WordPairExt> savedWordPairsList = wordPairExtFromJson(savedString);
+      print(savedWordPairsList);
+      setState(() {
+        _suggestions.addAll(savedWordPairsList);
+        _saved.addAll(savedWordPairsList);
+      });
+      print('file read'); //haha..debugging go brrr
     } catch (e) {
       // If encountering an error
       print(e); //might wanna rethink the error handling
 
     }
   }
-
 }
-
-
-
-
